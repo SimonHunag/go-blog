@@ -1,13 +1,13 @@
 package home
 
 import (
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	"go-blog/models/admin"
+	localcache "go-blog/service/cache"
 	"go-blog/utils"
 	"strings"
 	"time"
-
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
 )
 
 type BaseController struct {
@@ -61,6 +61,9 @@ func (c *BaseController) Layout() {
 	c.Data["Review"] = reviewData
 }
 
+var MENU_CACHE = "menu_cache"
+var LINK_CACHE = "link_cache"
+
 func (c *BaseController) Menu() {
 
 	var fields []string
@@ -73,35 +76,76 @@ func (c *BaseController) Menu() {
 	sortby = append(sortby, "sort")
 	order = append(order, "asc")
 
-	menu, _ := admin.GetAllMenu(query, fields, sortby, order, offset, limit)
-	data := utils.MenuData(menu, 0, 0)
-	/*c.Data["json"] = data
-	c.ServeJSON()
-	c.StopRun()*/
-	c.Data["Menu"] = data
+	menu_cache, ret := localcache.GetCache(MENU_CACHE)
+	if ret {
+		c.Data["Menu"] = menu_cache.([]utils.MenuTree)
+	} else {
+		menu, _ := admin.GetAllMenu(query, fields, sortby, order, offset, limit)
+		data := utils.MenuData(menu, 0, 0)
+		/*c.Data["json"] = data
+		c.ServeJSON()
+		c.StopRun()*/
+		c.Data["Menu"] = data
+		localcache.SetCache(MENU_CACHE, data)
+	}
 
-	link, _ := admin.GetAllLink(query, fields, sortby, order, offset, limit)
-	c.Data["Link"] = link
+	link_cache, ret1 := localcache.GetCache(LINK_CACHE)
+	if ret1 {
+		c.Data["Link"] = link_cache.([]interface{})
+	} else {
+		link, _ := admin.GetAllLink(query, fields, sortby, order, offset, limit)
+		c.Data["Link"] = link
+		localcache.SetCache(LINK_CACHE,link)
+	}
+
 
 }
+
+var SET_CONFIG = "setting_config"
+var PV_CACHE = "pv_cache"
+var UV_CACHE = "uv_cache"
 
 func (c *BaseController) Prepare() {
 	c.Data["bgClass"] = "bgColor"
 	c.Data["T"] = time.Now()
-
 	o := orm.NewOrm()
-	var setting []*admin.Setting
-	o.QueryTable(new(admin.Setting)).All(&setting)
 
-	for _, v := range setting {
-		c.Data[v.Name] = v.Value
+	settings, confret := localcache.GetCache(SET_CONFIG)
+	if confret {
+		for _, v := range settings.([]*admin.Setting) {
+			c.Data[v.Name] = v.Value
+		}
+	} else {
+
+		var setting []*admin.Setting
+		o.QueryTable(new(admin.Setting)).All(&setting)
+
+		for _, v := range setting {
+			c.Data[v.Name] = v.Value
+		}
+
+		localcache.SetCache(SET_CONFIG, setting)
 	}
 
-	pv, _ := o.QueryTable(new(admin.Log)).Count()
-	uv, _ := o.QueryTable(new(admin.Log)).GroupBy("ip").Count()
+	cachepv, pv_ret := localcache.GetCache(PV_CACHE)
+	if pv_ret {
+		c.Data["PV"] = cachepv.(int64)
+	} else {
+		pv, _ := o.QueryTable(new(admin.Log)).Count()
+		c.Data["PV"] = pv
 
-	c.Data["PV"] = pv
-	c.Data["UV"] = uv
+		localcache.SetCache(PV_CACHE, pv)
+	}
+
+	cacheuv, uv_ret := localcache.GetCache(UV_CACHE)
+	if uv_ret {
+		c.Data["UV"] = cacheuv.(int64)
+	} else {
+		uv, _ := o.QueryTable(new(admin.Log)).Count()
+		c.Data["UV"] = uv
+
+		localcache.SetCache(UV_CACHE, uv)
+	}
 
 	c.Layout()
 	c.Menu()

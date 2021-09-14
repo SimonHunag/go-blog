@@ -37,7 +37,7 @@ func init() {
 		c := cron.New()
 		//*/1 0 * * *
 		// 0 0 * * *
-		c.AddFunc("*/1 * * * *", func() {
+		c.AddFunc("0 */5 * * *", func() {
 			sitemap.Sitemap("./", conf.String("url"))
 		})
 		c.Start()

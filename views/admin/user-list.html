@@ -64,7 +64,7 @@
                                 <tbody>
                                 {{range $key, $value := $.Data}}
                                     <tr>
-                                        <td>{{IndexForOne $key $.Paginator.CurrentPage $.Paginator.PageSize}}</td>
+                                        <td>{{$value.Id}}</td>
                                         <td>{{$value.Name}}</td>
                                         <td>{{$value.Email}}</td>
                                         <td>{{$value.Created}}</td>

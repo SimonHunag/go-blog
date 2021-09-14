@@ -8,6 +8,8 @@ require (
 	github.com/antchfx/xmlquery v1.3.3 // indirect
 	github.com/astaxie/beego v1.12.2
 	github.com/beego/bee v1.12.0 // indirect
+	github.com/chatopera/chatopera-go-sdk v0.0.0-20200722143306-415d6de51c04
+	github.com/fanjindong/go-cache v0.0.4
 	github.com/flosch/pongo2 v0.0.0-20200805083417-63c99409991d // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gobwas/glob v0.2.3 // indirect
@@ -18,10 +20,12 @@ require (
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
+	github.com/muesli/cache2go v0.0.0-20210519043705-f6c4b2d7bc5d
+	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/peterh/liner v1.2.0 // indirect
 	github.com/pkg/errors v0.8.1
-	github.com/robfig/cron/v3 v3.0.1
+	github.com/robfig/cron/v3 v3.0.0
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
 	github.com/silenceper/wechat v1.2.3
@@ -33,7 +37,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.1 // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
-	github.com/toolkits/pkg v1.1.3
+	github.com/toolkits/pkg v1.1.3 // indirect
 	go.starlark.net v0.0.0-20201014215153-dff0ae5b4820 // indirect
 	golang.org/x/arch v0.0.0-20201008161808-52c3e6f60cff // indirect
 	golang.org/x/sys v0.0.0-20201101102859-da207088b7d1 // indirect

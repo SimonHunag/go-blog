@@ -27,5 +27,10 @@ func (c *MainController) Get() {
 		((*ArticleController)(unsafe.Pointer(c))).List()
 	}
 
-	c.TplName = "home/" + beego.AppConfig.String("view") + "/index.html"
+	if beego.AppConfig.String("view") == "leechan" {
+		((*ArticleController)(unsafe.Pointer(c))).List()
+	}
+
+	c.TplName = "home/" + beego.AppConfig.String("view") + "/list.html"
+
 }

@@ -49,9 +49,10 @@ func (c *ReviewController) List() {
 	if status != 0 {
 		qs = qs.Filter("status", status)
 	} else {
-		qs = qs.Filter("status__lt", 3)
+		//qs = qs.Filter("status__lt", 3)
 	}
 	// 获取数据
+	qs.OrderBy("-id").Limit(limit).Offset(offset).All(&reviews)
 	_, err := qs.OrderBy("-id").RelatedSel().Limit(limit).Offset(offset).All(&reviews)
 	if err != nil {
 		response["msg"] = "Error."

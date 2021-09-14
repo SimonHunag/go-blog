@@ -79,6 +79,7 @@ func init() {
 	beego.AddNamespace(adminNs)
 	// 公众号
 	beego.Router("/wechat", &wechat.MainController{}, "Get:CheckToken;Post:Hello")
+	beego.Router("/wechat/say", &wechat.MainController{}, "Get:Say;Post:SayHello")
 	beego.Router("/wechat/create/menu", &wechat.MenuController{}, "Get:CreateMenu;Post:CreateMenu")
 	beego.Router("/wechat/user/get", &wechat.UserController{}, "Get:GetUser")
 	beego.Router("/wechat/user/list", &wechat.UserController{}, "Get:List")

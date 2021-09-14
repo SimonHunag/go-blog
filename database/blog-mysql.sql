@@ -221,7 +221,7 @@ ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID';
 COMMIT;
 
-INSERT INTO `user` VALUES (1, 'user', '5c0b8081c10ad236fa004adfe685867f', '491126240@qq.com', '2020-2-11 12:22:55', 1);
+INSERT INTO `user` VALUES (1, 'user', '5c0b8081c10ad236fa004adfe685867f', '67993282@qq.com', '2020-2-11 12:22:55', 1);
 
 INSERT INTO `category` (`id`, `name`, `pid`, `sort`, `status`) VALUES
 (1, '随笔', 0, 100, 1);

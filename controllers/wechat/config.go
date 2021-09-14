@@ -20,4 +20,9 @@ var config = &wechat.Config{
 	Cache:			redisCache,
 }
 
+var clientId = beego.AppConfig.String("chatopera::clientId")
+var clientSecret = beego.AppConfig.String("chatopera::clientSecret")
+
+var limit = 0.6
+
 var log = logrus.New()

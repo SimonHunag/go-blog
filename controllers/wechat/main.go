@@ -4,19 +4,28 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
+	"github.com/chatopera/chatopera-go-sdk"
 	"github.com/silenceper/wechat"
 	"github.com/silenceper/wechat/message"
 	"sort"
+	"sync"
 )
 
 type MainController struct {
 	BaseController
 }
 
+var chat *chatopera.Chatopera
+var once sync.Once
+
 /**
  * 验证 服务器
  */
 func (c *MainController) CheckToken() {
+
+	once.Do(func() {
+		chat = chatopera.Chatbot(clientId,clientSecret)
+	})
 
 	signature := c.GetString("signature")
 	timestamp := c.GetString("timestamp")
@@ -49,6 +58,59 @@ func (c *MainController) CheckToken() {
 	}
 }
 
+func (c *MainController) Say() {
+	once.Do(func() {
+		chat = chatopera.Chatbot(clientId,clientSecret)
+	})
+
+	reply, err := chat.Faq("xiao", "傻瓜")
+
+	response := make(map[string]interface{})
+	if err != nil {
+		log.Error(err)
+
+		response["success"] = false
+		response["err"] = err.Error()
+
+	} else {
+		log.Info("TestFaq reply:",reply)
+		response["data"] = reply.Data
+		response["success"] = true
+	}
+
+	c.Data["json"] = response
+	c.ServeJSON()
+	c.StopRun()
+}
+
+
+
+func (c *MainController) SayHello() {
+	once.Do(func() {
+		chat = chatopera.Chatbot(clientId,clientSecret)
+	})
+	uid := c.GetString("userId")
+	msg := c.GetString("message")
+
+	reply, err := chat.Faq(uid, msg)
+
+	response := make(map[string]interface{})
+	if err != nil {
+		log.Error(err)
+
+		response["success"] = false
+		response["err"] = err.Error()
+
+	} else {
+		log.Info("TestFaq reply:",reply)
+		response["data"] = reply.Data
+		response["success"] = true
+	}
+
+	c.Data["json"] = response
+	c.ServeJSON()
+	c.StopRun()
+}
 
 func (c *MainController) Hello() {
 

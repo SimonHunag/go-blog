@@ -286,6 +286,7 @@ func (c *ArticleController) Review() {
 		Review:    template.HTMLEscapeString(review),
 		Site:      template.HTMLEscapeString(site),
 		ArticleId: aid,
+		Customer:  &admin.Customer{Id: 0},
 		Status:    1,
 	}
 

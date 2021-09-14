@@ -78,7 +78,7 @@ func write(url map[string]bool, path string) {
 		<url>
 			<loc>` + k + `</loc>
 			<priority>0.9</priority>
-			<lastmod>` + time.Now().Format("2006-01-02 15:04:05") + `</lastmod>
+			<lastmod>` + time.Now().Format("2006-01-02") + `</lastmod>
 			<changefreq>weekly</changefreq>
 		</url>
 `
