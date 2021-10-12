@@ -46,7 +46,7 @@ func (c *BaseController) Layout() {
 	nqrs := o.QueryTable(articleReadSort)
 	nqrs = nqrs.Filter("status", 1)
 	nqrs = nqrs.OrderBy("-Pv")
-	nqrs.Limit(5).All(&articlesReadSort, "Id", "Title", "Pv")
+	nqrs.Limit(5).All(&articlesReadSort, "Id", "Title", "Pv", "Url")
 	c.Data["ArticlesReadSort"] = articlesReadSort
 
 	// 最新评论
@@ -95,9 +95,8 @@ func (c *BaseController) Menu() {
 	} else {
 		link, _ := admin.GetAllLink(query, fields, sortby, order, offset, limit)
 		c.Data["Link"] = link
-		localcache.SetCache(LINK_CACHE,link)
+		localcache.SetCache(LINK_CACHE, link)
 	}
-
 
 }
 

@@ -77,7 +77,7 @@
                 <ul style="word-break:break-all">
                     {{range $k,$v := $.ArticlesReadSort}}
                         <li>
-                            <a title="{{$v.Title}}" href="/detail/{{$v.Id}}.html">
+                            <a title="{{$v.Title}}" href="/detailv2/{{$v.Url}}.html">
                                 {{IndexForOne $k 1 1}}. {{$v.Title}}({{$v.Pv}})
                             </a>
                         </li>
@@ -92,7 +92,7 @@
                 <ul style="word-break:break-all">
                     {{range $k,$v := $.Review}}
                         <li>
-                            <a title="{{str2html $v.Review}}" href="/detail/{{$v.ArticleId}}.html">
+                            <a title="{{str2html $v.Review}}" href="/detailv2/{{$v.Url}}.html">
                                 {{str2html $v.Review}}
                             </a>
                         </li>

@@ -162,6 +162,46 @@ func (c *ArticleController) List() {
 	c.TplName = "home/" + beego.AppConfig.String("view") + "/list.html"
 }
 
+// DetailV2 根据url名进行访问
+func (c *ArticleController) DetailV2() {
+	urlName := c.Ctx.Input.Param(":url_name")
+	viewType := c.GetString("type")
+
+	fmt.Printf("111 %s %s", urlName, viewType)
+
+	// 基础数据
+	o := orm.NewOrm()
+	article := new(admin.Article)
+	var articles []*admin.Article
+	qs := o.QueryTable(article)
+	err := qs.Filter("url", urlName).RelatedSel().One(&articles)
+	if err != nil {
+		c.Abort("404")
+	}
+
+	/*c.Data["json"]= &articles
+	c.ServeJSON()
+	c.StopRun()*/
+
+	c.Data["Data"] = &articles[0]
+	var other admin.Other
+
+	if &articles[0].Other != nil {
+		json.Unmarshal([]byte(articles[0].Other), &other)
+	}
+
+	other.SubjectInfo = strings.Replace(other.SubjectInfo, "\n", "<br>", -1)
+	c.Log("detail")
+	c.Data["index"] = &articles[0].Title
+	c.Data["Other"] = other
+
+	if viewType == "single" {
+		c.TplName = "home/" + beego.AppConfig.String("view") + "/doc.html"
+	} else {
+		c.TplName = "home/" + beego.AppConfig.String("view") + "/detail.html"
+	}
+}
+
 // 详情
 func (c *ArticleController) Detail() {
 

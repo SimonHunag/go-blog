@@ -86,14 +86,14 @@
                         <a href="/list.html?date={{dateformat $vlaue.Created "2006-01-02"}}">{{$vlaue.Created}}</a>
                     </div>
                     <div class="postTitle">
-                        <a class="postTitle2" title="{{$vlaue.Title}}" href="/detail/{{$vlaue.Id}}.html">
+                        <a class="postTitle2" title="{{$vlaue.Title}}" href="/detailv2/{{$vlaue.Url}}.html">
                             {{$vlaue.Title}}
                         </a>
                     </div>
                     <div class="postCon">
                         <div class="c_b_p_desc">
                             摘要：{{$vlaue.Remark}}
-                            <a title="{{$vlaue.Title}}" href="/detail/{{$vlaue.Id}}.html" class="c_b_p_desc_readmore">阅读全文</a>
+                            <a title="{{$vlaue.Title}}" href="/detailv2/{{$vlaue.Url}}.html" class="c_b_p_desc_readmore">阅读全文</a>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -182,7 +182,7 @@
                             <ul style="word-break:break-all">
                                 {{range $k,$v := $.ArticlesReadSort}}
                                 <li>
-                                    <a title="{{$v.Title}}" href="/detail/{{$v.Id}}.html">
+                                    <a title="{{$v.Title}}" href="/detailv2/{{$v.Url}}.html">
                                         {{IndexForOne $k 1 1}}. {{$v.Title}}({{$v.Pv}})
                                     </a>
                                 </li>
