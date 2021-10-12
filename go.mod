@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/PuerkitoBio/goquery v1.6.0
+	github.com/aliyun/aliyun-oss-go-sdk v1.9.8
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.3 // indirect
 	github.com/astaxie/beego v1.12.2

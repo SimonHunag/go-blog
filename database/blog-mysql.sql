@@ -240,7 +240,7 @@ INSERT INTO `menu` (`id`, `title`, `target`, `url`, `sort`, `pid`) VALUES
 INSERT INTO `link` (`id`, `title`, `url`, `sort`) VALUES
 (1, 'Go Blog', 'http://go-blog.cn', 100);
 INSERT INTO `link` (`id`, `title`, `url`, `sort`) VALUES
-(2, 'LeeChan\'Blog', 'http://leechan.online', 100);
+(2, 'LeeChan Blog', 'http://leechan.online', 100);
 
 INSERT INTO `setting` VALUES 
 ('about_html_code','<h2>欢迎来到Go Blog!<h2>'),
@@ -283,6 +283,10 @@ CREATE TABLE `ad` (
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'URL',
   `gid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '组别ID',
   `group` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '组别名称',
-  PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+--
+-- 使用表AUTO_INCREMENT `user`
+--
 

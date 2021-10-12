@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	_ "go-blog/routers"
 	db "go-blog/service/databsae"
 	"go-blog/utils"
 	"go-blog/utils/sitemap"
 
+	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/config"
 	"github.com/astaxie/beego/orm"
@@ -37,7 +39,8 @@ func init() {
 		c := cron.New()
 		//*/1 0 * * *
 		// 0 0 * * *
-		c.AddFunc("0 */5 * * *", func() {
+		//c.AddFunc("0 */5 * * *", func() {
+		c.AddFunc("0 * * * *", func() {
 			sitemap.Sitemap("./", conf.String("url"))
 		})
 		c.Start()
@@ -46,6 +49,7 @@ func init() {
 }
 
 func main() {
+	fmt.Println("OSS Go SDK Version: ", oss.Version)
 	//bee generate appcode -tables="cron" -driver=mysql -conn="root:root@tcp(127.0.0.1:3306)/blog" -level=3
 	beego.Run()
 }
